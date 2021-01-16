@@ -1,4 +1,4 @@
-add_subdirectory(qxtglobalshortcut)
+﻿add_subdirectory(qxtglobalshortcut)
 add_subdirectory(widgets)
 
 set(Ui_FORMS
@@ -18,7 +18,7 @@ add_library(Ui STATIC
     searchsidebar.cpp
     settingsdialog.cpp
     sidebarviewprovider.cpp
-    ${Ui_FORMS} # For Qt Creator.
+    ${Ui_FORMS} # For Qt Creator.z
 )
 
 target_link_libraries(Ui Browser Sidebar QxtGlobalShortcut Widgets Registry)

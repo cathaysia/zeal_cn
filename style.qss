@@ -1,0 +1,115 @@
+* {
+    font-family: "Microsoft YaHei";
+    font-size: 16px;
+}
+QPushButton{
+    background: #FFF;
+    border: 1px solid #DCDFE6;
+    color: #606266;
+    padding: 7px 10px;
+    min-height: 15px;
+    border-radius: 5px;
+}
+
+QPushButton:hover{
+    color: #409EFF;
+    border-color: #c6e2ff;
+    background-color: #ecf5ff;
+}
+
+QPushButton:pressed{
+    color: #3a8ee6;
+    border-color: #3a8ee6;
+    outline: 0;
+}
+QPushButton:disabled{
+    background-color: #FFFFFF;
+    color: #c0c4cc;
+}
+
+QLineEdit{
+    color: #606266;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    padding: 7px;
+}
+QLineEdit:disabled{
+    color: #c0c4cc;
+    /* background-color: #F5F7FA; */
+    border-color: #e4e7ed;
+}
+QTabWidget::pane{
+    background-color: white;
+    border: 1px solid transparent;
+}
+QTabBar::tab{
+    background-color: #F5F7FA;
+    color: #909399;
+    border: 1px solid transparent;
+    padding: 7px 20px;
+    font-weight: 400;
+}
+QTabBar::tab:selected{
+    background-color: white;
+    color: #409eff;
+}
+
+/* QScrollBar:vertical {
+    background-color: #fff;
+}
+QScrollBar::handle:vertical {
+    min-width: 16px;
+    background-color: #A0CFFF;
+    border-radius: 8px;
+}
+QScrollBar::handle:vertical:hover{
+    background-color: #409EFF;
+} */
+
+
+QListView {
+    color: black;
+    background-color: #fff;
+    outline:0px;
+    show-decoration-selected: 1;
+}
+QListView::item{
+    color: #606266;
+    padding: 4px 0;
+    border-bottom: 1px solid #ebeef5;
+}
+QListView::item:selected {
+    background-color: #F0F0F0;
+}
+QListView::item:hover {
+    background-color: #F5F7FA;
+}
+QMenuBar{
+    background-color: white;
+    color: black;
+    padding: 8px 10px;
+    border: none;
+    /* border-bottom: 1px solid gray; */
+}
+QMenuBar::item{
+    background-color: #fff;
+}
+QMenuBar::item:selected{
+    color: #409EFF;
+}
+QMenu{
+    background-color: white;
+    color: black;
+    /* font-weight: 400; */
+    border: 1px dotted  #001529;
+    padding: 2px;
+}
+QMenu::item{
+    font-size: 16px;
+    padding: 8px;
+}
+QMenu::item:selected{
+    background-color: #E6F7FF;
+    color: #409EFF;
+    /* background-color: #; */
+}

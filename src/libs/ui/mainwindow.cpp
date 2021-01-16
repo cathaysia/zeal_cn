@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2015-2016 Oleg Shparber
 ** Copyright (C) 2013-2014 Jerzy Kozera
@@ -59,7 +59,14 @@ MainWindow::MainWindow(Core::Application *app, QWidget *parent)
     , m_settings(app->settings())
 {
     ui->setupUi(this);
-
+    if(QFile::exists("./style.qss")){
+        QFile file("./style.qss");
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
+            QTextStream st(&file);
+            this->setStyleSheet(st.readAll());
+        }
+        qDebug()<<"aaaa "<<this->styleSheet();
+    }
     // Initialize the global shortcut handler if supported.
     if (QxtGlobalShortcut::isSupported()) {
         m_globalShortcut = new QxtGlobalShortcut(m_settings->showShortcut, this);

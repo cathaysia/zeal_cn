@@ -1,4 +1,4 @@
-add_library(Browser STATIC
+﻿add_library(Browser STATIC
     searchtoolbar.cpp
     settings.cpp
     urlrequestinterceptor.cpp

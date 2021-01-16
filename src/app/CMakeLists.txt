@@ -1,21 +1,22 @@
-# TODO: Move zeal.qrc one level up to rely on CMAKE_AUTORCC.
+﻿# TODO: Move zeal.qrc one level up to rely on CMAKE_AUTORCC.
 find_package(Qt5Core REQUIRED)
 qt5_add_resources(App_RESOURCES resources/zeal.qrc)
 # Silence CMP0071.
 set_property(SOURCE qrc_zeal.cpp PROPERTY SKIP_AUTOGEN ON)
-
+find_package(Qt5 COMPONENTS LinguistTools REQUIRED)
 if(APPLE)
     list(APPEND App_RESOURCES resources/zeal.icns)
 elseif(WIN32)
     configure_file(versioninfo.rc.in ${CMAKE_CURRENT_BINARY_DIR}/versioninfo.rc)
     list(APPEND App_RESOURCES ${CMAKE_CURRENT_BINARY_DIR}/versioninfo.rc)
 endif()
-
+set(TS_FILES zh_CN.ts)
 add_executable(App WIN32
     main.cpp
     ${App_RESOURCES}
+    ${TS_FILES}
 )
-
+qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 target_link_libraries(App Core Util)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2020 Oleg Shparber
 ** Copyright (C) 2019 Kay Gawlik
@@ -43,6 +43,7 @@ static Q_LOGGING_CATEGORY(log, "zeal.browser.webpage")
 WebPage::WebPage(QObject *parent)
     : QWebEnginePage(Settings::defaultProfile(), parent)
 {
+    setZoomFactor(1.2);
 }
 
 bool WebPage::acceptNavigationRequest(const QUrl &requestUrl, QWebEnginePage::NavigationType type, bool isMainFrame)

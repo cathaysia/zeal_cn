@@ -77,7 +77,7 @@ BrowserTab::BrowserTab(QWidget *parent)
     m_backButton->setAutoRaise(true);
     m_backButton->setIcon(qApp->style()->standardIcon(QStyle::SP_ArrowBack));
     m_backButton->setStyleSheet(QStringLiteral("QToolButton::menu-indicator { image: none; }"));
-    m_backButton->setText(QStringLiteral("â†"));
+    m_backButton->setText(QStringLiteral("¡û"));
     m_backButton->setToolTip(tr("Go back one page"));
 
     auto backMenu = new QMenu(m_backButton);
@@ -99,7 +99,7 @@ BrowserTab::BrowserTab(QWidget *parent)
     m_forwardButton->setAutoRaise(true);
     m_forwardButton->setIcon(qApp->style()->standardIcon(QStyle::SP_ArrowForward));
     m_forwardButton->setStyleSheet(QStringLiteral("QToolButton::menu-indicator { image: none; }"));
-    m_forwardButton->setText(QStringLiteral("â†’"));
+    m_forwardButton->setText(QStringLiteral("¡ú"));
     m_forwardButton->setToolTip(tr("Go forward one page"));
 
     auto forwardMenu = new QMenu(m_forwardButton);

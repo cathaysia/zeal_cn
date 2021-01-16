@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2015-2016 Oleg Shparber
 ** Copyright (C) 2013-2014 Jerzy Kozera
@@ -35,6 +35,7 @@
 #include <QTextStream>
 #include <QTimer>
 #include <QUrlQuery>
+#include <QTranslator>
 
 #ifdef Q_OS_WIN32
 #include <QSettings>
@@ -183,7 +184,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
     QScopedPointer<QApplication> qapp(new QApplication(argc, argv));
-
+    // i18n
+    QTranslator translator;
+    translator.load("./zh_CN.qm");
+    qapp->installTranslator(&translator);
     const CommandLineParameters clParams = parseCommandLine(qapp->arguments());
 
 #ifdef Q_OS_WIN32

@@ -356,7 +356,7 @@
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_11">
                   <property name="text">
-                   <string>Siz&amp;e:</string>
+                   <string>Fixed Siz&amp;e:</string>
                   </property>
                   <property name="buddy">
                    <cstring>fixedFontSizeComboBox</cstring>
@@ -723,6 +723,9 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
