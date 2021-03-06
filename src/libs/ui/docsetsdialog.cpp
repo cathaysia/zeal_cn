@@ -34,6 +34,7 @@
 #include <registry/itemdatarole.h>
 
 #include <QClipboard>
+#include <QComboBox>
 #include <QDateTime>
 #include <QDir>
 #include <QInputDialog>
@@ -55,20 +56,23 @@ using namespace Zeal::WidgetUi;
 extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
 #endif
 
+QString RedirectServerUrl = "http://london.kapeli.com/feeds/%1.tgz";
+
 namespace {
-constexpr char ApiServerUrl[] = "https://api.zealdocs.org/v1";
-//constexpr char RedirectServerUrl[] = "https://go.zealdocs.org/d/%1/%2/latest";
-constexpr char RedirectServerUrl[] = "http://london.kapeli.com/feeds/%1.tgz";
-// TODO: Each source plugin should have its own cache
-constexpr char DocsetListCacheFileName[] = "com.kapeli.json";
+    constexpr char ApiServerUrl[] = "https://api.zealdocs.org/v1";
+    // constexpr char RedirectServerUrl[] =
+    // "https://go.zealdocs.org/d/%1/%2/latest";
+    // TODO: Each source plugin should have its own cache
+    constexpr char DocsetListCacheFileName[] = "com.kapeli.json";
 
-// TODO: Make the timeout period configurable
-constexpr int CacheTimeout = 24 * 60 * 60 * 1000; // 24 hours in microseconds
+    // TODO: Make the timeout period configurable
+    constexpr int CacheTimeout =
+        24 * 60 * 60 * 1000; // 24 hours in microseconds
 
-// QNetworkReply properties
-constexpr char DocsetNameProperty[] = "docsetName";
-constexpr char DownloadTypeProperty[] = "downloadType";
-constexpr char ListItemIndexProperty[] = "listItem";
+    // QNetworkReply properties
+    constexpr char DocsetNameProperty[]    = "docsetName";
+    constexpr char DownloadTypeProperty[]  = "downloadType";
+    constexpr char ListItemIndexProperty[] = "listItem";
 } // namespace
 
 DocsetsDialog::DocsetsDialog(Core::Application *app, QWidget *parent)
@@ -100,21 +104,30 @@ DocsetsDialog::DocsetsDialog(Core::Application *app, QWidget *parent)
             this, &DocsetsDialog::extractionCompleted);
     connect(m_application, &Core::Application::extractionError,
             this, &DocsetsDialog::extractionError);
-    connect(m_application, &Core::Application::extractionProgress,
-            this, &DocsetsDialog::extractionProgress);
+    connect(m_application, &Core::Application::extractionProgress, this,
+            &DocsetsDialog::extractionProgress);
+    connect(ui->switchCityBox,
+            QOverload<int>::of(&QComboBox::currentIndexChanged), [this]() {
+                RedirectServerUrl = QString("http://") +
+                                    ui->switchCityBox->currentText() +
+                                    QString(".kapeli.com/feeds/%1.tgz");
+                qDebug() << "current RedirectServerUrl is "
+                         << RedirectServerUrl;
+            });
 
     // Setup signals & slots
-    connect(ui->buttonBox, &QDialogButtonBox::clicked, this, [this](QAbstractButton *button) {
-        if (button == ui->buttonBox->button(QDialogButtonBox::Cancel)) {
-            cancelDownloads();
-            return;
-        }
+    connect(ui->buttonBox, &QDialogButtonBox::clicked, this,
+            [this](QAbstractButton *button) {
+                if (button == ui->buttonBox->button(QDialogButtonBox::Cancel)) {
+                    cancelDownloads();
+                    return;
+                }
 
-        if (button == ui->buttonBox->button(QDialogButtonBox::Close)) {
-            close();
-            return;
-        }
-    });
+                if (button == ui->buttonBox->button(QDialogButtonBox::Close)) {
+                    close();
+                    return;
+                }
+            });
 
     setupInstalledDocsetsTab();
     setupAvailableDocsetsTab();
@@ -778,7 +791,7 @@ void DocsetsDialog::downloadDashDocset(const QModelIndex &index)
 //    } else {
 //        url = m_userFeeds[name].url();
 //    }
-    url = QUrl(QString(RedirectServerUrl).arg(name));
+    url = QUrl(RedirectServerUrl.arg(name));
     qDebug()<<url;
     QNetworkReply *reply = download(url);
     reply->setProperty(DocsetNameProperty, name);

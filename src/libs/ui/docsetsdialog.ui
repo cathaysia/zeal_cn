@@ -16,11 +16,14 @@
   <property name="windowTitle">
    <string>Docsets</string>
   </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="installedDocsetsTab">
       <attribute name="title">
@@ -105,14 +108,57 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QLineEdit" name="docsetFilterInput">
-         <property name="placeholderText">
-          <string>Filter docsets</string>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLineEdit" name="docsetFilterInput">
+           <property name="placeholderText">
+            <string>Filter docsets</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="switchCityBox">
+           <item>
+            <property name="text">
+             <string notr="true">london</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">frankfurt</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">newyork</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">sanfrancisco</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">singapore</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">sydney</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string notr="true">tokyo</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QListWidget" name="availableDocsetList">

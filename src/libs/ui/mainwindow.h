@@ -47,73 +47,74 @@ class SearchQuery;
 } //namespace Registry
 
 namespace WidgetUi {
+    class DocsetsDialog;
+    namespace Ui {
+        class MainWindow;
+    } // namespace Ui
 
-namespace Ui {
-class MainWindow;
-} // namespace Ui
+    class BrowserTab;
+    class SidebarViewProvider;
 
-class BrowserTab;
-class SidebarViewProvider;
+    class MainWindow : public QMainWindow {
+        Q_OBJECT
+    public:
+        explicit MainWindow(Core::Application *app, QWidget *parent = nullptr);
+        ~MainWindow() override;
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
-public:
-    explicit MainWindow(Core::Application *app, QWidget *parent = nullptr);
-    ~MainWindow() override;
+        void search(const Registry::SearchQuery &query);
+        void bringToFront();
+        BrowserTab *createTab();
 
-    void search(const Registry::SearchQuery &query);
-    void bringToFront();
-    BrowserTab *createTab();
+    public slots:
+        void toggleWindow();
 
-public slots:
-    void toggleWindow();
+    signals:
+        void currentTabChanged();
 
-signals:
-    void currentTabChanged();
+    protected:
+        void changeEvent(QEvent *event) override;
+        void closeEvent(QCloseEvent *event) override;
+        bool eventFilter(QObject *object, QEvent *event) override;
+        void keyPressEvent(QKeyEvent *keyEvent) override;
 
-protected:
-    void changeEvent(QEvent *event) override;
-    void closeEvent(QCloseEvent *event) override;
-    bool eventFilter(QObject *object, QEvent *event) override;
-    void keyPressEvent(QKeyEvent *keyEvent) override;
+    private slots:
+        void applySettings();
+        void closeTab(int index = -1);
+        void moveTab(int from, int to);
+        void duplicateTab(int index);
 
-private slots:
-    void applySettings();
-    void closeTab(int index = -1);
-    void moveTab(int from, int to);
-    void duplicateTab(int index);
+    private:
+        void setupTabBar();
 
-private:
-    void setupTabBar();
+        void addTab(BrowserTab *tab, int index = -1);
+        BrowserTab *currentTab() const;
+        BrowserTab *tabAt(int index) const;
 
-    void addTab(BrowserTab *tab, int index = -1);
-    BrowserTab *currentTab() const;
-    BrowserTab *tabAt(int index) const;
+        void createTrayIcon();
+        void removeTrayIcon();
 
-    void createTrayIcon();
-    void removeTrayIcon();
+        void syncTabState(BrowserTab *tab);
 
-    void syncTabState(BrowserTab *tab);
+        Ui::MainWindow *ui               = nullptr;
+        Core::Application *m_application = nullptr;
+        Core::Settings *m_settings       = nullptr;
 
-    Ui::MainWindow *ui = nullptr;
-    Core::Application *m_application = nullptr;
-    Core::Settings *m_settings = nullptr;
+        Browser::WebBridge *m_webBridge = nullptr;
 
-    Browser::WebBridge *m_webBridge = nullptr;
+        QMenu *m_backMenu    = nullptr;
+        QMenu *m_forwardMenu = nullptr;
 
-    QMenu *m_backMenu = nullptr;
-    QMenu *m_forwardMenu = nullptr;
+        QxtGlobalShortcut *m_globalShortcut = nullptr;
 
-    QxtGlobalShortcut *m_globalShortcut = nullptr;
+        QTabBar *m_tabBar = nullptr;
 
-    QTabBar *m_tabBar = nullptr;
+        friend class SidebarViewProvider;
+        SidebarViewProvider *m_sbViewProvider = nullptr;
 
-    friend class SidebarViewProvider;
-    SidebarViewProvider *m_sbViewProvider = nullptr;
-
-    QSystemTrayIcon *m_trayIcon = nullptr;
-};
+        QSystemTrayIcon *m_trayIcon = nullptr;
+        // dialog
+        DocsetsDialog *dialog = nullptr;
+    };
 
 } // namespace WidgetUi
 } // namespace Zeal

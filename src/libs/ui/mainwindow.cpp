@@ -148,8 +148,12 @@ MainWindow::MainWindow(Core::Application *app, QWidget *parent)
 
     // Tools Menu
     connect(ui->actionDocsets, &QAction::triggered, this, [this]() {
-        QScopedPointer<DocsetsDialog> dialog(new DocsetsDialog(m_application, this));
-        dialog->exec();
+        if (!dialog) {
+            dialog = new DocsetsDialog(m_application, this);
+        }
+        //        QScopedPointer<DocsetsDialog> dialog(
+        //            new DocsetsDialog(m_application, this));
+        this->dialog->show();
     });
 
     // Help Menu
